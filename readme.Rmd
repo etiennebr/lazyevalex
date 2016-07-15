@@ -23,13 +23,10 @@ exploration by giving the reader problems to solve. Let's hope he's not
 
 ```{r}
 lm2 <- function(response, predictor, data, ...) {
-  # I can't figure out how to uq both at once within a formula that uses a
-  # formula (~ lm(y ~ x)), so I'll plug them into a formula one by one.
-  f <- y ~ x
-  f_lhs(f) <- uq(response)
-  f_rhs(f) <- uq(predictor)
+  # fill lefthand side with response 
+  f_lhs(predictor) <- uq(response)
 
-  lm(formula = f, data = data, ...)
+  lm(formula = predictor, data = data, ...)
 }
 
 lm2(~ mpg, ~ cyl, mtcars)
